@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+    <h2 class="col-11 my-5">{{title}}</h2>
+    <!-- [formGroup] fetches form from component.ts -->
+    <form *ngIf="deck" [formGroup]="deckForm" (ngSubmit)="onUpdate(deckForm)" class="col-11 white-form py-4">
+      <input type="hidden" formControlName="deckID" id="deckUpdateID" ngModel="{{deck._id}}">
+      <div class="form-row align-items-center">
+        <div class="col-3">
+          <label for="deckName">Namn på kortlek</label>
+          <input class="form-control" formControlName="deckName" id="deckName" type="text" ngModel="{{deck.name}}" required>
+          <!-- Validation -->
+          <span *ngIf="!deckForm.controls.deckName.valid && deckForm.controls.deckName.touched" class="form-text invalid">Namn krävs</span>
+        </div>
+        <div class="col-auto">
+          <div class="form-check mt-4">
+            <input class="form-check-input" formControlName="deckPublic" id="deckPublic" type="checkbox">
+            <label class="form-check-label ml-2" for="deckPublic">Offentlig?</label>
+          </div>
+        </div>
+        <div class="col-2 align-self-end">
+            <!-- Delete deck opens a modal window with separate form for deletion -->
+            <button *ngIf="isLoggedIn" type="button" class="btn btn-sm btn-danger btn-remove-deck" (click)="modalConfirm.open()">Ta bort kortlek</button>
+          </div>
+      </div>
+      <div formArrayName="cards">
+        <!-- Loops through each card rows -->
+        <div class="card-container" *ngFor="let card of deckForm.controls.cards.controls; let i=index">
+          <div [formGroupName]="i">
+            <div class="form-row align-items-start mt-2">
+              <div class="col-auto card-number">{{i+1}}</div>
+              <div class="col-5">
+                <label for="cardQuestion{{i+1}}">Fråga:</label>
+                <!-- Activated autosize on focus -->
+                <textarea class="form-control" formControlName="question" id="cardQuestion{{i+1}}" rows="1" #qInput (focus)="activateAutosize(qInput)"></textarea>
+              </div>
+              <div class="col-5">
+                <label for="cardAnswer{{i+1}}">Svar:</label>
+                <!-- Activated autosize on focus -->
+                <textarea class="form-control" formControlName="answer" id="cardAnswer{{i+1}}" rows="1" #aInput (focus)="activateAutosize(aInput)"></textarea>
+              </div>
+              <div class="col-auto remove-card">
+                <!-- Removes row, only shows if there is more than 1 row-->
+                <button *ngIf="deckForm.controls.cards.controls.length > 1" class="btn btn-sm btn-danger remove-button" (click)="removeCard(i)">Ta bort</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-outline-secondary btn-lg col-11 mb-3" type="button" (click)="addCard()">Lägg till ny fråga</button>
+      <span class="btn btn-danger btn-lg" *ngIf="!isLoggedIn">Logga in för att spara</span>
+      <button class="btn btn-primary btn-lg" *ngIf="isLoggedIn" type="submit">Spara kortlek</button>
+    </form>
+  </div>
+
+  <!-- Modal window with form for deletion-->
+  <ngx-smart-modal #modalConfirm [identifier]="'modalConfirm'">
+      <h1 class="text-center">Vill du ta bort kortlek?</h1>
+          <form class="d-flex justify-content-center delete-form" *ngIf="deck" (ngSubmit)="onDelete(deleteForm)" #deleteForm="ngForm">
+            <input type="hidden" name="deckID" id="deckDeleteID" ngModel="{{deck._id}}">
+            <button class="btn btn-danger btn-lg align-self-center" type="submit">Ta bort</button> 
+            <button class="btn ml-3 btn-lg align-self-center" type="button" (click)="modalConfirm.close()">Avbryt</button>
+          </form>
+  </ngx-smart-modal>

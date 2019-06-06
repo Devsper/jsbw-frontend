@@ -1,0 +1,16 @@
+.btn-margin {
+    margin-left: 55px;
+}
+
+.overview-qna{
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    background-color: #e9ecef;
+}
+
+.overview-label{
+    margin-bottom: 8px;
+}

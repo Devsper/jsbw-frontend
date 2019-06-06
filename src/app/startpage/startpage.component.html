@@ -1,0 +1,58 @@
+<!-- If user not logged in show normal startpage  -->
+<div *ngIf="!isLoggedIn()" class="row h-100 align-items-center justify-content-center">
+  <div class="col-6">
+    <div class="row align-items-center">
+        <div class="col-6">
+          <h2>Flashcards för lärande</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident minima ducimus temporibus obcaecati animi optio rem doloremque magnam placeat eos.</p>
+          <!-- Open modal window for register user  -->
+          <a class="btn btn-primary" [routerLink]="" (click)="modalService.getModal('modalRegister').open()" >Kom igång</a>
+        </div>
+        <div class="col-6">
+          <!-- [ngClass] checks variable in component.ts and adds/removes class depending on value-->
+          <div class="flip-container flip-small" [ngClass]="flip ? 'flip' : ''">
+              <div class="flipper">
+                <!-- Front of card -->
+                <div class="front flip-small">
+                  <p>Who's Awesome?</p>
+                  <div class="card-bottom">
+                      <div class="pull-right">
+                          <span class="turn-me">Vänd mig!</span>
+                          <!-- When card is flipped variable changes in component and [ngClass] changes class for 'flip-container' above -->
+                          <div class="card-flip pull-right" (click)="toggleClass()"></div>
+                      </div>
+                  </div>
+                </div>
+                <!-- Back of card -->
+                <div class="back flip-small">
+                  <p>You are! :)</p>
+                  <div class="card-bottom">
+                      <div class="pull-right">
+                        <!-- When card is flipped variable changes in component and [ngClass] changes class for 'flip-container' above -->
+                        <div class="card-flip" (click)="toggleClass()"></div>
+                      </div> 
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- If user logged show logged in startpage  -->
+<div *ngIf="isLoggedIn()" class="row h-100 align-items-center justify-content-center">
+    <div class="col-6">
+      <div class="row align-items-center">
+          <div class="col-4">
+            <a class="btn btn-outline-dark btn-lg btn-block py-5" routerLink="/create-deck">Skapa ny kortlek</a>
+          </div>
+          <div class="col-4">
+            <a class="btn btn-outline-dark btn-lg btn-block py-5" routerLink="/browse-decks">Bläddra</a>
+          </div>
+          <div class="col-4">
+              <a class="btn btn-outline-dark btn-lg btn-block py-5" routerLink="/browse-decks/user/{{userId}}">Dina Kortlekar</a>
+            </div>
+      </div>
+    </div>
+  </div>

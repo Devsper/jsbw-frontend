@@ -1,1 +1,210 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    min-width: 600px;
+    background: #fbfbfb;
+}
+
+input.ng-invalid.ng-touched{
+    box-shadow: 0px 0px 3px red;
+}
+
+.invalid{
+    color: red;
+}
+
+
+.heading{
+    margin: 30px 0;
+}
+
+.full-height{
+    height: calc(100vh - 140px);
+}
+
+.form-check-input{
+    width: 20px;
+    height: 20px;
+}
+
+.white-form{
+    background: white;
+    border: 1px solid lightgrey;
+}
+
+textarea{
+    resize: none;
+}
+
+.remove-card{
+    margin-top: 37px;
+}
+
+.card-container{
+    position:relative;
+    padding: 10px 0 20px 0;
+}
+
+.card-number{
+    width: 40px;
+    font-size: 20px;
+    height: 40px;
+    border-radius: 100%;
+    border: 1px solid rgb(201, 201, 201);
+    text-align: center;
+    line-height: 35px;
+    margin-right: 15px;
+}
+
+/*FLIP CSS */
+/* Adopted from David Walsh "Create a CSS Flipping Animation"
+   URL - https://davidwalsh.name/css-flip
+*/
+
+/* entire container, keeps perspective */
+.flip-container {
+    perspective: 1000px;
+    font-weight: bold;
+}
+
+/* flip the pane when hovered */
+.flip-container.flip .flipper {
+    transform: rotateY(180deg);
+}
+
+.flip-small {
+	width: 320px;
+    min-height: 320px;
+}
+
+.flip-big {
+	width: 460px;
+    min-height: 460px;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+    left: 0;
+    border: 1px solid rgb(146, 146, 146);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 1px 5px rgb(151, 151, 151);
+    background: white;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+}
+
+/** END FLIP CSS **/
+
+/** CUSTOM CSS FOR CARDS **/
+
+.card-bottom{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    padding: 5px 5px;
+}
+
+.turn-me{
+    font-size: 10px;
+}
+
+.study-menu{
+    border: 1px solid grey;
+    display: flex;
+    flex-wrap: wrap;
+    width: 460px;
+    background: white;
+}
+
+.study-quit{
+    width: 90px;
+    height: 60px;
+    margin-top: -60px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.study-heading{
+    width:100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h3{
+    margin-top: 7px;
+}
+
+.card-count{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.card-flip{
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    background-image: url("/assets/img/flip.svg");
+    cursor: pointer;
+}
+
+.card-text{
+    max-width: 50%;
+}
+
+.card-controls{
+    width: 100px;
+    margin-right: 145px;
+}
+
+.card-next, .card-previous{
+    width: 40px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.card-next{
+    background-image: url("/assets/img/right.svg");
+}
+
+.card-previous
+{
+    background-image: url("/assets/img/left.svg");
+}
+
+.pull-right{
+    margin-left: auto;
+}
+
+/* Bootstrap override */
+.dropdown-menu{
+    left: -95px;
+}

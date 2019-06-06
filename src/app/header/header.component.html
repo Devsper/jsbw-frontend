@@ -1,0 +1,18 @@
+<header class="header">
+    <nav class="navbar navbar-expand-sm">
+        <a class="navbar-brand" routerLink="/">Flashcards</a>
+        <ul class="navbar-nav flex-row">
+          <!-- Only show menu item if user is logged in-->
+          <li *ngIf="isLoggedIn" class="nav-item nav-divider">
+            <a class="nav-link" routerLink="/browse-decks/user/{{userId}}" routerLinkActive="active">Dina kortlekar</a>
+          </li>
+          <li class="nav-item nav-divider">
+            <a class="nav-link" routerLink="/browse-decks" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Bläddra</a>
+          </li>
+          <li class="nav-item nav-divider">
+            <a class="nav-link" routerLink="/create-deck" routerLinkActive="active">Skapa+</a>
+          </li>
+        </ul>
+        <app-user-menu class="flex-row ml-auto"></app-user-menu>
+    </nav>
+  </header>

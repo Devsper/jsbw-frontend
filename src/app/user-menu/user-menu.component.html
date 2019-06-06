@@ -1,0 +1,63 @@
+<!-- Menu only shows if user is not logged in -->
+<ul class="navbar-nav" *ngIf="!isLoggedIn">
+    <!-- On click opens login and register modal window -->
+    <li class="nav-item"><a class="nav-link" [routerLink]="" (click)="modalLogin.open()">Logga in</a></li>
+    <li class="nav-item nav-divider"><a class="nav-link" [routerLink]="" (click)="modalRegister.open()">Registrera</a></li>
+</ul>
+
+<!-- Menu only shows if user is logged in -->
+<div class="dropdown" *ngIf="isLoggedIn">
+  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenyButton" data-toggle="dropdown">{{username}}</button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" routerLink="/browse-decks/user/{{userId}}">Dina Kortlekar</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" [routerLink]="" (click)="onLogout()" >Logga ut</a>
+    </div>
+</div>
+
+<!-- Modal window containing login form-->
+<ngx-smart-modal #modalLogin [identifier]="'modalLogin'">
+    <h1 class="text-center">Logga in</h1>
+    <form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm">
+      <div class="form-group has-danger">
+        <label for="email">E-post:</label>
+        <input type="text" id="email" name="email" class="form-control has-danger" #loginEmail="ngModel" ngModel required>
+        <span class="form-text invalid" *ngIf="loginEmail.invalid && loginEmail.touched || loginForm.submitted && loginEmail.invalid">E-post krävs</span>
+        <label for="password">Lösenord:</label>
+        <input type="password" id="password" name="password" class="form-control" #loginPass="ngModel" ngModel required>
+        <span class="form-text invalid" *ngIf="loginPass.invalid && loginPass.touched || loginForm.submitted && loginPass.invalid">Lösenord krävs</span>
+      </div>
+      <button class="button -dark" type="submit">Logga in</button>
+    </form>
+    <div class="mt-3">
+      <p>Inget konto? <a [routerLink]="" (click)="modalLogin.close()" (click)="modalRegister.open()">Registrera dig här</a></p>  
+    </div>
+</ngx-smart-modal>
+
+<!-- Modal window containing register form -->
+<ngx-smart-modal #modalRegister [identifier]="'modalRegister'">
+    <h1 class="text-center">Registrera konto</h1>
+    <form (ngSubmit)="onRegister(registerForm)" #registerForm="ngForm">
+      <div class="form-group">
+        <label for="username">Användarnamn:</label>
+        <input type="text" id="username" name="username" class="form-control" #regUser="ngModel" ngModel required>
+        <span class="form-text invalid" *ngIf="regUser.invalid && regUser.touched || registerForm.submitted && regUser.invalid">Användarnamn krävs</span>
+        <label for="email">E-post:</label>
+        <input type="text" id="email" name="email" class="form-control" #regEmail="ngModel" ngModel required>
+        <span class="form-text invalid" *ngIf="regEmail.invalid && regEmail.touched || registerForm.submitted && regEmail.invalid">E-post krävs</span>
+        <label for="password">Lösenord:</label>
+        <input type="password" id="password" name="password" class="form-control" #regPass="ngModel" ngModel required>
+        <span class="form-text invalid" *ngIf="regPass.invalid && regPass.touched || registerForm.submitted && regPass.invalid">Lösenord krävs</span>
+        <span class="form-text invalid" *ngIf="regPassConf.value != regPass.value && registerForm.submitted">Lösenorden stämmer inte</span>
+        <label for="passwordConfirm">Upprepa Lösenord:</label>
+        <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control" #regPassConf="ngModel" ngModel required>
+        <span class="form-text invalid" *ngIf="regPassConf.invalid && regPassConf.touched || registerForm.submitted && regPassConf.invalid">Lösenord måste upprepas</span>
+        <span class="form-text invalid" *ngIf="regPassConf.value != regPass.value && registerForm.submitted">Lösenorden stämmer inte</span>
+      </div>
+      <button class="button -dark">Registrera dig</button>
+    </form>
+    <div class="mt-3">
+        <p>Har du redan ett konto? <a [routerLink]="" (click)="modalRegister.close()" (click)="modalLogin.open()">Logga in här</a></p>  
+    </div>
+</ngx-smart-modal>
+

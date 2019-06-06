@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+  <h2 class="col-11 my-5">{{title}}</h2>
+  <!-- [formGroup] fetches form from component.ts -->
+  <form [formGroup]="deckForm" (ngSubmit)="onSave(deckForm)" class="col-11 white-form py-4">
+    <div class="form-row align-items-center">
+      <div class="col-3">
+        <label for="deckName">Namn på kortlek</label>
+        <input class="form-control" formControlName="deckName" id="deckName" type="text" required>
+        <!-- Validation -->
+        <span *ngIf="!deckForm.controls.deckName.valid && deckForm.controls.deckName.touched" class="form-text invalid">Namn krävs</span>
+      </div>
+      <div class="col-auto">
+        <div class="form-check mt-4">
+          <input class="form-check-input" formControlName="deckPublic" id="deckPublic" type="checkbox">
+          <label class="form-check-label ml-2" for="deckPublic">Offentlig?</label>
+        </div>
+      </div>
+    </div>
+    <div formArrayName="cards">
+      <!-- Loops through each card rows -->
+      <div class="card-container" *ngFor="let card of deckForm.controls['cards']['controls']; let i=index">
+        <div [formGroupName]="i">
+          <div class="form-row align-items-start mt-2">
+            <div class="col-auto card-number">{{i+1}}</div>
+            <div class="col-5">
+              <label for="cardQuestion{{i+1}}">Fråga:</label>
+              <!-- Activated autosize on focus -->
+              <textarea class="form-control" formControlName="question" id="cardQuestion{{i+1}}" rows="1" #qInput (focus)="activateAutosize(qInput)"></textarea>
+            </div>
+            <div class="col-5">
+              <label for="cardAnswer{{i+1}}">Svar:</label>
+              <textarea class="form-control" formControlName="answer" id="cardAnswer{{i+1}}" rows="1" #aInput (focus)="activateAutosize(aInput)"></textarea>
+            </div>
+            <div class="col-auto remove-card">
+              <!-- Removes row, only shows if there is more than 1 row-->
+              <button *ngIf="deckForm.controls.cards.controls.length > 1" class="btn btn-sm btn-danger remove-button" (click)="removeCard(i)">Ta bort</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-outline-secondary btn-lg col-11 mb-3" type="button" (click)="addCard()">Lägg till ny fråga</button>
+    <!-- Button only shows if user is logged in -->
+    <span class="btn btn-danger btn-lg" *ngIf="!isLoggedIn">Logga in för att spara</span>
+    <button class="btn btn-primary btn-lg" *ngIf="isLoggedIn" type="submit">Spara kortlek</button>
+  </form>
+</div>

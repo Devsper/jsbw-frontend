@@ -1,0 +1,105 @@
+.study-area{
+    min-height: 580px;
+}
+
+.study-container{
+    width: 600px;
+    min-height: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.vis-hidden{
+  visibility: hidden;
+}
+
+
+/** CSS FOR CARD TRANSITION **/
+
+/* All upcoming cards have this class. 
+   This is a 'static' position when card finished moving
+*/
+.stack-next{
+    opacity: 0;
+    position: absolute;
+    left: 335px;
+    bottom: 0;
+    transform: rotate(10deg);
+    transition: all 0.2s ease-out;
+  }
+
+  /* All past cards have this class
+     This is a static position when card finished moving 
+  */
+  .stack-prev{
+    opacity: 0;
+    position: absolute;
+    left: -205px;
+    bottom: 0;
+    transform: rotate(-10deg);
+    transition: all 0.2s ease-out;
+  }
+
+  /* The first upcoming card starts transitioning to 'current' position when this class is applied 
+     Applies when "Next card" is used
+  */
+  .next-move-left{
+    opacity: 1;
+    position: absolute;
+    left: 70px;
+    bottom: 0;
+    transform: rotate(0deg);
+    transition: all 0.2s ease-out;
+  }
+
+  /* The first past card starts transitioning to 'current' position when this class is applied 
+     Applies when "Previous card" is used
+  */
+  .prev-move-right{
+    opacity: 1;
+    position: absolute;
+    transform: rotate(0deg);
+    left: 70px;
+    bottom: 0;
+    transition: all 0.2s ease-out
+  }
+  
+  /* The current card starts transitioning to 'stack-next' 
+     Applies when "Previous card" is used
+  */
+  .current-move-right{
+    opacity: 0;
+    position: absolute;
+    left: 335px;
+    bottom: 0;
+    transform: rotate(10deg);
+    transition: all 0.2s ease-out;
+  }
+
+  /* Current card have this class
+     This is a static position when card finished moving 
+  */
+  .current-card{
+    position: absolute;
+    transform: rotate(0deg);
+    left: 70px;
+    bottom: 0;
+    opacity: 1;
+    transition: all 0.2s ease-out;
+    z-index: 5000;
+  }
+  
+  /* The current card starts transitioning to 'stack-prev' 
+     Applies when "Next card" is used
+  */
+  .current-move-left{
+    opacity: 0;
+    position: absolute;
+    left: -205px;
+    bottom: 0;
+    transform: rotate(-10deg);
+    transition: all 0.2s ease-out;
+  }
+

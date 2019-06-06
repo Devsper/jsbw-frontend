@@ -1,0 +1,11 @@
+.nav-link.active{
+    font-weight: 500;
+}
+
+.nav-divider{
+    border-left: 1px solid lightgray;
+}
+
+.nav-item{
+    padding: 0 10px 0 10px;
+}

@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+  <h2 class="my-5 col-11">{{title}}</h2>
+  <div class="col-11">
+    <div class="row align-items-start">
+      <!-- Loops through every deck adds values with interpolation {{variable}}-->
+      <div *ngFor="let deck of decks" class="flashcard">
+        <div class="fcHead">
+          <span class="fcInfo"> {{deck.cards.length}} Frågor | Skapad av {{deck.createdBy.username}} </span>
+          <span class="float-right">
+              <a class="btn btn-primary btn-sm" routerLink="/overview/{{deck._id}}">Studera</a>
+          </span>
+        </div>
+        <div class="fcBody">
+          <h3>{{deck.name}}</h3>
+          <table class="table">
+            <tr *ngIf="deck.cards[0]">
+              <td>{{deck.cards[0].question}}</td>
+              <td>{{deck.cards[0].answer}}</td>
+            </tr>
+            <tr *ngIf="deck.cards[1]">
+              <td>{{deck.cards[1].question}}</td>
+              <td>{{deck.cards[1].answer}}</td>
+            </tr>
+            <tr *ngIf="deck.cards[2]">
+              <td>{{deck.cards[2].answer}}</td>
+              <td>{{deck.cards[2].answer}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

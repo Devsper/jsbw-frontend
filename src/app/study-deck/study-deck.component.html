@@ -1,0 +1,72 @@
+<div class="row h-100 study-area justify-content-center align-items-center">
+  <div class="study-container" *ngIf="deck">
+    <div class="study-menu mb-2">
+      <div class="study-heading">
+        <h3>{{deck.name}}</h3>
+      </div>
+      <div class="study-quit">
+        <a routerLink="/overview/{{deck._id}}"><span>&#9664;</span> Avsluta</a>
+      </div>
+    </div>
+    <!-- Loops through all cards, only the first card gets 'current-card' class 'stack-next' are stacked on eachother -->
+    <div *ngFor="let card of deck.cards; let i=index" class="card-container" [ngClass]="(i==0)?'current-card':'stack-next'">
+      <!-- [ngClass] checks variable in component.ts and adds/removes class depending on value -->
+      <div  class="flip-container flip-big" [ngClass]="flip ? 'flip' : ''">
+        <div class="flipper">
+          <!-- Front of card -->
+          <div class="front flip-big">
+            <div class="card-count">
+              <span>{{i+1}} of {{numOfCards}}</span>
+            </div>
+            <p class="card-text">{{card.question}}</p>
+            <div class="card-bottom d-flex justify-content-end">
+              <div class="card-controls d-flex justify-content-between">
+                <!-- Control is hidden if there are no previous card-->
+                <div [class.vis-hidden]="i==0" class="card-previous" (click)="previousCard()"></div>
+                <div class="card-next" (click)="nextCard()"></div>
+              </div>
+              <!-- When card is flipped variable changes in component and [ngClass] changes class for 'flip-container' above -->
+              <div class="card-flip" (click)="toggleClass()"></div>
+            </div>
+          </div>
+          <!-- Back of card -->
+          <div class="back flip-big">
+            <div class="card-count">
+              <span>{{i+1}} of {{numOfCards}}</span>
+            </div>
+            <p class="card-text">{{card.answer}}</p>
+            <div class="card-bottom d-flex justify-content-end">
+              <div class="card-controls d-flex justify-content-between">
+                <!-- Control is hidden if there are no previous card-->
+                <div [class.vis-hidden]="i==0" class="card-previous" (click)="previousCard()"></div>
+                <div class="card-next" (click)="nextCard()"></div>
+              </div>
+              <!-- When card is flipped variable changes in component and [ngClass] changes class for 'flip-container' above -->
+              <div class="card-flip" (click)="toggleClass()"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Last card of every deck, cannot be flipped -->
+    <div class="card-container stack-next">
+      <div  class="flip-container flip-big">
+        <div class="flipper">
+          <div class="front flip-big flex-column text-center">
+            <p class="card-text">Sista kortet! Börja om eller välj en ny kortlek.</p>
+            <!-- Restarts the deck -->
+            <button class="btn btn-primary" (click)="toFirstCard()">Börja om</button>
+            <div class="card-bottom d-flex justify-content-end">
+              <div class="card-controls d-flex justify-content-between">
+                <div class="card-previous" (click)="previousCard()"></div>
+                <div class="card-next vis-hidden"></div>
+              </div>
+              <div class="card-flip vis-hidden"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+.flashcard{
+    width: 32%;
+    border: 1px solid lightgrey;
+    padding: 15px 15px 0 15px;
+    margin-bottom: 1.333%;
+    background: white;
+    margin-right: 0.666%;
+    margin-left: 0.666%;
+}

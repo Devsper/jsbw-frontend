@@ -1,0 +1,22 @@
+<div class="row justify-content-center">
+    <h2 class="col-11 my-5">{{title}}</h2>
+    <!-- Form only renders when variable 'deck' has a value -->
+    <form *ngIf="deck" class="col-11 white-form py-4">
+        <span>{{deck.name}} | <a routerLink="/study/{{deck._id}}">Studera</a> <span *ngIf="isUsersDeck">|</span> <a *ngIf="isUsersDeck" routerLink="/update-deck/{{deck._id}}">Ändra hela kortlek</a></span>
+        <!-- Loop through every input row of cards -->
+        <div class="card-container" *ngFor="let card of deck.cards; let i=index">
+          <div class="form-row align-items-start mt-2">
+            <div class="col-auto card-number">{{i+1}}</div>
+            <div class="col-5">
+                <span class="overview-label">Fråga:</span>
+                <div class="overview-qna">{{card.question}}</div>
+            </div>
+            <div class="col-5">
+                <span class="overview-label">Fråga:</span>
+                <div class="overview-qna">{{card.answer}}</div>
+            </div>
+          </div>
+        </div>
+            <a class="btn btn-primary btn-margin" routerLink="/study/{{deck._id}}">Studera</a>
+      </form>
+</div>
